@@ -20,12 +20,13 @@ define([
   // Views
   "./queryoptions/queryoptions.react",
   "./queryoptions/actions",
+  './jumptodoc.react',
 
   //plugins
   "../../../assets/js/plugins/prettify"
 ],
 
-function (app, FauxtonAPI, Components, Documents, Databases, QueryOptions, QueryActions) {
+function (app, FauxtonAPI, Components, Documents, Databases, QueryOptions, QueryActions, JumpToDoc) {
 
   var Views = {};
 
@@ -53,14 +54,15 @@ function (app, FauxtonAPI, Components, Documents, Databases, QueryOptions, Query
       FauxtonAPI.Events.on('success:bulkDelete', this.selectAllMenu);
 
       // insert the Search Docs field
-      this.headerSearch = this.insertView("#header-search", new Views.JumpToDoc({
+      /*this.headerSearch = this.insertView("#header-search", new Views.JumpToDoc({
         database: this.database,
         collection: this.database.allDocs
-      }));
+      }));*/
     },
 
     afterRender: function () {
       QueryOptions.render('#query-options');
+      JumpToDoc.render('#header-search', this.database, this.database.allDocs);
       this.toggleQueryOptionsHeader(this.isHidden);
     },
 
