@@ -17,7 +17,6 @@ import BaseRoute from "./shared-routes";
 import Databases from "../databases/resources";
 import Components from "../fauxton/components";
 import Resources from "./resources";
-import Documents from "./views";
 import IndexResultsActions from "./index-results/actions";
 import IndexResultStores from "./index-results/stores";
 import ReactHeader from "./header/header.react";
@@ -28,6 +27,7 @@ import MangoActions from "./mango/mango.actions";
 import MangoStores from "./mango/mango.stores";
 import IndexResultsComponents from "./index-results/index-results.components.react";
 import SidebarActions from "./sidebar/actions";
+import RightAllDocsHeader from './rightalldocsheader.react';
 
 var MangoIndexEditorAndQueryEditor = BaseRoute.extend({
   layout: 'two_pane',
@@ -55,6 +55,10 @@ var MangoIndexEditorAndQueryEditor = BaseRoute.extend({
     MangoActions.setDatabase({
       database: this.database
     });
+
+    /*this.setComponent("#right-header", RightAllDocsHeader, {
+      database: this.database
+    });*/
   },
 
   findUsingIndex: function () {
@@ -81,7 +85,7 @@ var MangoIndexEditorAndQueryEditor = BaseRoute.extend({
     IndexResultsActions.newMangoResultsList({
       collection: mangoResultCollection,
       textEmptyIndex: 'No Results',
-      bulkCollection: new Documents.BulkDeleteDocCollection([], { databaseId: this.database.safeID() }),
+      bulkCollection: new Resources.BulkDeleteDocCollection([], { databaseId: this.database.safeID() }),
     });
 
     MangoActions.getIndexList({
@@ -122,7 +126,7 @@ var MangoIndexEditorAndQueryEditor = BaseRoute.extend({
 
     IndexResultsActions.newResultsList({
       collection: mangoIndexCollection,
-      bulkCollection: new Documents.MangoBulkDeleteDocCollection([], { databaseId: this.database.safeID() }),
+      bulkCollection: new Resources.MangoBulkDeleteDocCollection([], { databaseId: this.database.safeID() }),
       typeOfIndex: 'mango'
     });
 

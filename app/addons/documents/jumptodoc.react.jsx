@@ -15,13 +15,12 @@ import FauxtonAPI from "../../core/api";
 import React from "react";
 import ReactDOM from "react-dom";
 import ReactSelect from "react-select";
-import "lodash";
 
 const JumpToDoc = ({database, allDocs}) => {
   const options = allDocs.map(doc => {
     return {
-      value: doc.get('_id'),
-      label: doc.get('_id')
+      value: doc._id,
+      label: doc._id
     };
   });
   return (
@@ -43,12 +42,7 @@ const JumpToDoc = ({database, allDocs}) => {
 
 JumpToDoc.propTypes = {
   database: React.PropTypes.object.isRequired,
-  allDocs: React.PropTypes.object.isRequired,
+  allDocs: React.PropTypes.array.isRequired,
 };
 
-export default {
-  JumpToDoc,
-  render: (el, database, allDocs) => {
-    ReactDOM.render(<JumpToDoc database={database} allDocs={allDocs} />, $(el)[0]);
-  }
-};
+export default JumpToDoc;
