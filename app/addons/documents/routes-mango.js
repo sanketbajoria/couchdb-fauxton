@@ -55,10 +55,6 @@ var MangoIndexEditorAndQueryEditor = BaseRoute.extend({
     MangoActions.setDatabase({
       database: this.database
     });
-
-    /*this.setComponent("#right-header", RightAllDocsHeader, {
-      database: this.database
-    });*/
   },
 
   findUsingIndex: function () {

@@ -22,9 +22,9 @@ import QueryOptionsStore from '../queryoptions/stores';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
-const {indexResultsStore} = IndexResultStores;
-const {queryOptionsStore} = QueryOptionsStore;
-const {ToggleHeaderButton} = Components;
+const { indexResultsStore } = IndexResultStores;
+const { queryOptionsStore } = QueryOptionsStore;
+const { ToggleHeaderButton } = Components;
 
 var BulkDocumentHeaderController = React.createClass({
   getStoreState () {
