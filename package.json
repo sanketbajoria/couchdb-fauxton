@@ -2,18 +2,32 @@
   "name": "fauxton",
   "version": "1.1.8",
   "description": "Fauxton is a modular CouchDB dashboard and Futon replacement.",
-  "main": "./index.js",
-  "directories": {
-    "test": "test"
-  },
-  "bin": {
-    "fauxton": "./bin/fauxton"
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ]
+  "scripts": {
+    "stylecheck": "eslint --ext=js,jsx .",
+    "webpack:dev": "webpack --debug --progress --colors --config ./webpack.config.dev.js",
+    "webpack:test": "webpack --debug --progress --colors --config ./webpack.config.test.js",
+    "webpack:release": "webpack --debug --progress --colors --config ./webpack.config.release.js",
+    "test": "grunt test",
+    "phantomjs": "./node_modules/.bin/mocha-phantomjs --debug=false --ssl-protocol=sslv2 --web-security=false --ignore-ssl-errors=true ./test/runner.html",
+    "couchdebug": "grunt couchdebug",
+    "couchdb": "grunt couchdb",
+    "couchapp": "grunt couchapp_deploy",
+    "dev": "node ./devserver.js",
+    "nightwatch": "grunt nightwatch",
+    "start": "node ./bin/fauxton",
+    "start-debug": "DIST=./dist/debug node ./bin/fauxton",
+    "preversion": "node version-check.js && grunt release",
+    "test-before-publish": "npm run preversion && npm install . -g",
+    "create:animaldb": "./bin/create-animal-db",
+    "docker:couchdb-up": "docker-compose -f ./docker/dc.selenium.yml up -d couchdb",
+    "docker:selenium-up": "docker-compose -f ./docker/dc.selenium.yml up -d selenium",
+    "docker:selenium-debug-up": "docker-compose -f ./docker/dc.selenium-debug.yml up -d selenium",
+    "docker:reset": "npm run docker:down && npm run docker:up",
+    "docker:logs": "docker logs couchdb",
+    "docker:up": "docker-compose -f ./docker/dc.selenium.yml up -d",
+    "docker:debug-up": "docker-compose -f ./docker/dc.selenium-debug.yml up -d",
+    "docker:down": "docker-compose -f ./docker/dc.selenium.yml down",
+    "remove-test-dbs": "node ./bin/remove-test-dbs.js"
   },
   "devDependencies": {
     "enzyme": "^2.4.1",
@@ -94,33 +108,6 @@
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.1",
     "zeroclipboard": "^2.2.0"
-  },
-  "scripts": {
-    "stylecheck": "eslint --ext=js,jsx .",
-    "webpack:dev": "webpack --debug --progress --colors --config ./webpack.config.dev.js",
-    "webpack:test": "webpack --debug --progress --colors --config ./webpack.config.test.js",
-    "webpack:release": "webpack --debug --progress --colors --config ./webpack.config.release.js",
-    "test": "grunt test",
-    "phantomjs": "./node_modules/.bin/mocha-phantomjs --debug=false --ssl-protocol=sslv2 --web-security=false --ignore-ssl-errors=true ./test/runner.html",
-    "couchdebug": "grunt couchdebug",
-    "couchdb": "grunt couchdb",
-    "couchapp": "grunt couchapp_deploy",
-    "dev": "node ./devserver.js",
-    "nightwatch": "grunt nightwatch",
-    "start": "node ./bin/fauxton",
-    "start-debug": "DIST=./dist/debug node ./bin/fauxton",
-    "preversion": "node version-check.js && grunt release",
-    "test-before-publish": "npm run preversion && npm install . -g",
-    "create:animaldb": "./bin/create-animal-db",
-    "docker:couchdb-up": "docker-compose -f ./docker/dc.selenium.yml up -d couchdb",
-    "docker:selenium-up": "docker-compose -f ./docker/dc.selenium.yml up -d selenium",
-    "docker:selenium-debug-up": "docker-compose -f ./docker/dc.selenium-debug.yml up -d selenium",
-    "docker:reset": "npm run docker:down && npm run docker:up",
-    "docker:logs": "docker logs couchdb",
-    "docker:up": "docker-compose -f ./docker/dc.selenium.yml up -d",
-    "docker:debug-up": "docker-compose -f ./docker/dc.selenium-debug.yml up -d",
-    "docker:down": "docker-compose -f ./docker/dc.selenium.yml down",
-    "remove-test-dbs": "node ./bin/remove-test-dbs.js"
   },
   "repository": {
     "type": "git",
