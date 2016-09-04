@@ -27,7 +27,8 @@
     "docker:up": "docker-compose -f ./docker/dc.selenium.yml up -d",
     "docker:debug-up": "docker-compose -f ./docker/dc.selenium-debug.yml up -d",
     "docker:down": "docker-compose -f ./docker/dc.selenium.yml down",
-    "remove-test-dbs": "node ./bin/remove-test-dbs.js"
+    "remove-test-dbs": "node ./bin/remove-test-dbs.js",
+    "prepublish":  "grunt release"
   },
   "dependencies": {
     "backbone": "^1.1.0",
