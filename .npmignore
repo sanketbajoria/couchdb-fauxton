@@ -1,6 +1,2 @@
-app/
-assets/
-tasks
-test/
-dist/debug
-dist/tmp-out
+*
+!dist/release/*
