@@ -229,7 +229,6 @@ Components.Tray = FauxtonAPI.View.extend({
 
 
 Components.ModalView = FauxtonAPI.View.extend({
-  disableLoader: true,
 
   initialize: function (options) {
     _.bindAll(this);
@@ -338,88 +337,6 @@ Components.DbSearchTypeahead = Components.Typeahead.extend({
       }
     });
   }
-});
-
-
-
-//need to make this into a backbone view...
-var routeObjectSpinner;
-
-FauxtonAPI.RouteObject.on('beforeEstablish', function (routeObject) {
-  if (!routeObject.disableLoader) {
-    var opts = {
-      lines: 16, // The number of lines to draw
-      length: 8, // The length of each line
-      width: 4, // The line thickness
-      radius: 12, // The radius of the inner circle
-      color: '#333', // #rbg or #rrggbb
-      speed: 1, // Rounds per second
-      trail: 10, // Afterglow percentage
-      shadow: false // Whether to render a shadow
-    };
-
-    if (routeObjectSpinner) { return; }
-
-    if (!$('.spinner').length) {
-      $('<div class="spinner"></div>')
-        .appendTo('#app-container');
-    }
-
-    routeObjectSpinner = new Spinner(opts).spin();
-    $('.spinner').append(routeObjectSpinner.el);
-  }
-});
-
-var removeRouteObjectSpinner = function () {
-  if (routeObjectSpinner) {
-    routeObjectSpinner.stop();
-    routeObjectSpinner = null;
-    $('.spinner').remove();
-  }
-};
-
-var removeViewSpinner = function (selector) {
-  var viewSpinner = viewSpinners[selector];
-
-  if (viewSpinner) {
-    viewSpinner.stop();
-    $(selector).find('.spinner').remove();
-    delete viewSpinners[selector];
-  }
-};
-
-var viewSpinners = {};
-FauxtonAPI.RouteObject.on('beforeRender', function (routeObject, view, selector) {
-  removeRouteObjectSpinner();
-
-  if (!view.disableLoader) {
-    var opts = _.extend({
-      lines: 16, // The number of lines to draw
-      length: 8, // The length of each line
-      width: 4, // The line thickness
-      radius: 12, // The radius of the inner circle
-      color: '#333', // #rbg or #rrggbb
-      speed: 1, // Rounds per second
-      trail: 10, // Afterglow percentage
-      shadow: false // Whether to render a shadow
-    }, view.loaderStyles);
-
-    var viewSpinner = new Spinner(opts).spin();
-    $('<div class="spinner"></div>')
-      .appendTo(selector)
-      .append(viewSpinner.el);
-
-    viewSpinners[selector] = viewSpinner;
-  }
-});
-
-FauxtonAPI.RouteObject.on('afterRender', function (routeObject, view, selector) {
-  removeViewSpinner(selector);
-});
-
-FauxtonAPI.RouteObject.on('viewHasRendered', function (view, selector) {
-  removeViewSpinner(selector);
-  removeRouteObjectSpinner();
 });
 
 
