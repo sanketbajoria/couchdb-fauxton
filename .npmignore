@@ -4,3 +4,9 @@ tasks
 test/
 dist/debug
 dist/tmp-out
+docker
+bin
+typings
+.vscode
+typings.json
+

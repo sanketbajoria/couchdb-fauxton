@@ -39,3 +39,6 @@ test/bundle.js
 test/bundle.dev.js
 test/templates.js
 test/dashboard.assets
+typings
+.vscode
+typings.json
