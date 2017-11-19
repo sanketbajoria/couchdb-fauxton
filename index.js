@@ -2,8 +2,7 @@ var path = require("path");
 var http = require("http");
 var httpProxy = require('http-proxy');
 var send = require('send');
-var urlLib = require('url');
-var _ = require('lodash');
+//var urlLib = require('url');
 var dist_dir = process.env.DIST || __dirname + '/dist/release/';
 
 module.exports = function (options) {
@@ -31,7 +30,7 @@ module.exports = function (options) {
   var fileTypes = ['.js', '.css', '.png', '.swf', '.eot', '.woff', '.svg', '.ttf', '.swf'];
 
   function isFile (url) {
-    return _.includes(fileTypes, path.extname(url));
+    return fileTypes.indexOf(path.extname(url)) >= 0;
   }
 
   // create proxy to couch for all couch requests
@@ -63,8 +62,8 @@ module.exports = function (options) {
 
     // This sets the Host header in the proxy so that one can use external
     // CouchDB instances and not have the Host set to 'localhost'
-    var urlObj = urlLib.parse(req.url);
-    req.headers.host = urlObj.host;
+    //var urlObj = new urlLib(req.url);
+    //req.headers.host = urlObj.host;
 
     this.proxy.web(req, res);
   }).listen(port, '0.0.0.0');
@@ -79,21 +78,6 @@ module.exports = function (options) {
     if (proxyRes.headers['set-cookie']) {
       proxyRes.headers['set-cookie'][0] = proxyRes.headers["set-cookie"][0].replace('Secure', '');
     }
-  });
-
-  var logo = [
-    [""],
-    [" ______                        _                   "],
-    ["|  ____|                      | |                  "],
-    ["| |__    __ _   _   _  __  __ | |_    ___    _ __  "],
-    ["|  __|  / _` | | | | | \\ \\/ / | __|  / _ \\  | '_ \\ "],
-    ["| |    | (_| | | |_| |  >  <  | |_  | (_) | | | | |"],
-    ["|_|     \\__,_|  \\__,_| /_/\\_\\  \\__|  \\___/  |_| |_|"],
-    [""]
-  ];
-
-  _.each(logo, function (line) {
-    console.log(line.toString());
   });
 
   console.log('Listening on ' + port);

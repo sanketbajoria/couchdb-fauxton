@@ -42,3 +42,4 @@ test/dashboard.assets
 typings
 .vscode
 typings.json
+galaxy-fauxton-*.tgz

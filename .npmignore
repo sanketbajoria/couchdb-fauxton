@@ -5,8 +5,11 @@ test/
 dist/debug
 dist/tmp-out
 docker
-bin
 typings
 .vscode
 typings.json
-
+.github
+__mocks__
+codemods
+.*
+galaxy-fauxton*
